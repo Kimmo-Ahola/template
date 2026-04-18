@@ -20,8 +20,9 @@ public class Author {
     @Column(nullable = false, length = 255, name = "email", unique = true)
     private String email;
 
-    public Author(String firstName, String lastName) {
+    public Author(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
     }
 }
