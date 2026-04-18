@@ -10,9 +10,9 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 255)
     private String firstName;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 255)
     private String lastName;
 
     public Author(String firstName, String lastName) {
