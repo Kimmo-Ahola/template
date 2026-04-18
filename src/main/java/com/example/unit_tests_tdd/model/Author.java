@@ -17,6 +17,9 @@ public class Author {
     @Column(nullable = false, length = 255, name = "last_name")
     private String lastName;
 
+    @Column(nullable = false, length = 255, name = "email", unique = true)
+    private String email;
+
     public Author(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
