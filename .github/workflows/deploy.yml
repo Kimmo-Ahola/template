@@ -1,8 +1,8 @@
-name: Unit tests
+name: Deploy
 
 on:
   push:
-    branches: ["main", "master"]
+    branches: ["main"]
 
 jobs:
   unit-tests:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup Java
@@ -23,30 +23,23 @@ jobs:
       - name: Run unit tests
         run: mvn test --batch-mode --no-transfer-progress
 
-      - name: Upload test reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: unit-test-reports
-          path: target/surefire-reports/
-
   build:
-    name: Build project
+    name: Build
     runs-on: ubuntu-latest
     needs: unit-tests
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Java
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           java-version: "17"
           distribution: "temurin"
           cache: maven
 
-      - name: Build
+      - name: Build JAR
         run: mvn package -DskipTests --batch-mode --no-transfer-progress
 
       - name: Upload JAR
@@ -59,6 +52,10 @@ jobs:
     name: Deploy to Elastic Beanstalk
     runs-on: ubuntu-latest
     needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
       - name: Checkout code
@@ -70,11 +67,10 @@ jobs:
           name: app-jar
           path: target/
 
-      - name: Configure AWS credentials
+      - name: Configure AWS credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Generate deployment package name
