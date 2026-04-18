@@ -22,7 +22,7 @@ public class AuthorServiceTest {
     Author author;
     @BeforeEach
     void setUp() {
-        author = new Author("Kimmo", "Ahola", "test@email.se");
+        author = new Author("Kimmo", "Ahola", "test@email.se", null);
         authorService.save(author);
     }
 
