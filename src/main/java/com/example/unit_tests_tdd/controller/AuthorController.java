@@ -23,7 +23,7 @@ public class AuthorController {
     @GetMapping("/")
     public String index(Model model) {
         if (authorRepository.findAll().isEmpty()) {
-            authorRepository.save(new Author("Kimmo", "Ahola"));
+            authorRepository.save(new Author("Kimmo", "Ahola", "kimmo@test.se"));
         }
         List<Author> authors = authorRepository.findAll();
         model.addAttribute("authors", authors);
