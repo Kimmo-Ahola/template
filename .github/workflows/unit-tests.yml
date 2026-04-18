@@ -2,9 +2,15 @@ name: Unit tests
 
 on:
   push:
-    branches: ["*"]
+    branches:
+      - "*"
+      - "!main"
+      - "!master"
   pull_request:
-    branches: ["*"]
+    branches:
+      - "*"
+      - "!main"
+      - "!master"
 
 jobs:
   unit-tests:
