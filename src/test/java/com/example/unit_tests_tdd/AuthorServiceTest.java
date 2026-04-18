@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AuthorServiceTest {
     @Autowired
     AuthorService authorService;
-    
     @Autowired
     AuthorRepository authorRepository;
     Author author;
