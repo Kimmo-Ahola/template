@@ -9,5 +9,12 @@
     <h2>We are testing the pipeline. Does it work or not?</h2>
 
     <img th:src="@{/images/cage.jpg}" alt="nicolas cage">
+
+    <div th:each="author : ${authors}">
+        <ul>
+            <li th:text="${author.firstName}"></li>
+            <li th:text="${author.lastName}"></li>
+        </ul>
+    </div>
 </body>
 </html>
