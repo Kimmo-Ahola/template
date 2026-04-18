@@ -3,6 +3,7 @@ package com.example.unit_tests_tdd;
 import org.flywaydb.core.Flyway;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 
 import javax.sql.DataSource;
@@ -15,6 +16,7 @@ public class UnitTestsTddApplication {
 	}
 
 	@Bean(initMethod = "migrate")
+	@ConditionalOnProperty(name = "spring.flyway.enabled", havingValue = "true", matchIfMissing = true)
 	public Flyway flyway(DataSource dataSource) {
 		return Flyway.configure()
 				.dataSource(dataSource)
