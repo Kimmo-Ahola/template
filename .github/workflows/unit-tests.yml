@@ -4,13 +4,15 @@ on:
   push:
     branches:
       - "*"
-      - "!main"
-      - "!master"
+    branches-ignore:
+      - "main"
+      - "master"
   pull_request:
     branches:
       - "*"
-      - "!main"
-      - "!master"
+    branches-ignore:
+      - "main"
+      - "master"
 
 jobs:
   unit-tests:
