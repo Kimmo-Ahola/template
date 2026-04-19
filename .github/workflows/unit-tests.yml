@@ -9,8 +9,6 @@ on:
       - "master"
   pull_request:
     branches:
-      - "*"
-    branches-ignore:
       - "main"
       - "master"
 
